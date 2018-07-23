@@ -19,7 +19,7 @@ router.post("./api/saved",(req,res)=>{
 //   })
 //   }else{
 //     saved.find({
-//       id : req.params
+//       id : req.params.id
 //     })
 //   .then((data)=>{
 //     res.json(data);

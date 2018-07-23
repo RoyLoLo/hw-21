@@ -20,8 +20,8 @@ app.use(routes);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
-//connect to MongoDB named savedarticle
-mg.connect(process.env.MONGODC_URI ||"mongodb://localhost/savedarticle");
+//connect to MongoDB named nytreact
+mg.connect(process.env.MONGODC_URI ||"mongodb://localhost/nytreact");
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
