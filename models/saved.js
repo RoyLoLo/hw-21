@@ -7,7 +7,7 @@ const sS = new Schema({
     unique : true,
   },
   date : Date,
-  link : String
+  url : String
 });
 
 const S = mg.model("saved",sS);
