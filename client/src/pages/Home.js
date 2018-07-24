@@ -66,7 +66,7 @@ class Home extends Component {
         date: pushArticle.pub_date
       }
     }, () => {
-      console.log(this.state.save);
+      // console.log(this.state.save);
       axios.post("/api/saved",this.state.save).then(response=>{ 
         this.setState({save:{}})
         if(response){
@@ -95,18 +95,18 @@ class Home extends Component {
           sf={this.submitForm}
           />
       </div>
-      <div style={resultsstyle}>
-      
-      <Results 
-          save={this.save} 
-          results={this.state.results}/>
-      
-      </div>
       <div style={savedstyle}>
       
       <Saved 
           saved={this.state.saved} 
           delete={this.delete}/>
+      
+      </div>
+      <div style={resultsstyle}>
+      
+      <Results 
+          save={this.save} 
+          results={this.state.results}/>
       
       </div>
     </div>

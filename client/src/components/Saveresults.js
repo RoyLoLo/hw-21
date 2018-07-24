@@ -15,7 +15,7 @@ const Saved = (props) => (
         <h6 style={{textAlign:"center"}}>Saved Articles</h6>
       <p>Headline : {item.title}</p>
       <p><a href={item.url}>Click for Full Article</a></p>
-      <button onClick={()=>props.delete(item._id)}>Delete</button>
+      <button className="btn-outline-danger btn-block" onClick={()=>props.delete(item._id)}>Delete</button>
       </li>
       </div>
     )
