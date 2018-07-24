@@ -1,8 +1,17 @@
 import React , {Component} from "react";
 import Results from "../components/Searchresults";
 import Saved from "../components/Saveresults";
+import Search from "../components/Searchform";
 import axios from "axios";
+const searchstyle ={
 
+}
+const resultsstyle = {
+
+}
+const savedstyle = {
+
+}
 class Home extends Component {
   
   state ={
@@ -16,22 +25,24 @@ class Home extends Component {
     }
   };
   componentDidMount(){
+  this.savedGet();
+  }
+
+  search = (x) => {
+    this.setState({results:[]})
+    axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=069c74a5b71a445b9e4e78d9653dc559&q=${x}&sort=newest`).then((res)=>{
+      this.setState({results : res.data.response.docs})
+      // console.log(this.state.results)
+    })
+  };
+
+  savedGet=()=>{
     axios.get("/api/saved").then(response=>{
       this.setState({
         saved:response.data
       })
     })
   }
-
-  search = (x) => {
-    this.setState({results:[]},
-    axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=069c74a5b71a445b9e4e78d9653dc559&q=${x}&sort=newest`).then((res)=>{
-      this.setState({results : res.data.response.docs})
-      console.log(this.state.results)
-    }))
-  };
-
-  
 
   submitForm = event =>{
     event.preventDefault();
@@ -56,9 +67,10 @@ class Home extends Component {
       }
     }, () => {
       console.log(this.state.save);
-      axios.post("/api/saved",this.state.save).then(response=>{
+      axios.post("/api/saved",this.state.save).then(response=>{ 
         this.setState({save:{}})
         if(response){
+          this.savedGet();  
           console.log("Success",response)
         }
       }).catch((error)=>{
@@ -69,32 +81,34 @@ class Home extends Component {
 
   delete = (match) =>{
     axios.delete(`/api/saved/${match}`).then(response=>{
-      axios.get("/api/saved").then(response=>{
-        this.setState({
-          saved:response.data
-        })
-      })
+     this.savedGet();
     })
   }
 
   render(){
   return(
     <div>
-      <form className="form" onChange = {this.inputChange}> 
-<input
-    value={this.state.searchterm}
-    name="quantity"
-    type="text"
-    placeholder="What would you like to search for?"
-    className="form-control mt-2"
-  />
-  <button type="submit" className="btn btn-outline-primary  mt-2 btn-block" onClick={this.submitForm}>Search</button>
-</form>
-      <ul>
-      <Results save={this.save} results={this.state.results}/>
-      </ul>
-      <Saved saved={this.state.saved} delete={this.delete}/>
+     <div style={searchstyle}>
+     <Search 
+          st={this.state.searchterm}
+          ic={this.inputChange}
+          sf={this.submitForm}
+          />
+      </div>
+      <div style={resultsstyle}>
       
+      <Results 
+          save={this.save} 
+          results={this.state.results}/>
+      
+      </div>
+      <div style={savedstyle}>
+      
+      <Saved 
+          saved={this.state.saved} 
+          delete={this.delete}/>
+      
+      </div>
     </div>
   )}
 }

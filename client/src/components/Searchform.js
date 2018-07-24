@@ -8,8 +8,8 @@ const Search = props => (
 <form 
   className="form" > 
 <input
-    value={props.st.searchterm}
-    onChange = {props.ic.inputChange}
+    value={props.st}
+    onChange = {props.ic}
     name="quantity"
     type="text"
     placeholder="What would you like to search for?"
@@ -18,7 +18,7 @@ const Search = props => (
   <button 
     type="submit" 
     className="btn btn-outline-primary  mt-2 btn-block" 
-    onClick={props.sf.submitForm}>Search</button>
+    onClick={props.sf}>Search</button>
 </form>
 
 </div>
