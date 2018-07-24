@@ -21,7 +21,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 //connect to MongoDB named nytreact
-mg.connect(process.env.MONGODB_URI ||"mongodb://localhost/nytreact");
+mg.connect(process.env.MONGODB_URI ||"mongodb://localhost/heroku_hq18rpd)");
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
